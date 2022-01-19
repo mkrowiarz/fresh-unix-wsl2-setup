@@ -14,6 +14,10 @@ sudo apt install -y python3-pip zsh htop git curl tldr
 sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig && \
 sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
 
+sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig
+sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target
+exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
+
 sudo snap install phpstorm --classic
 
 # Set ZSH as default shell
