@@ -29,12 +29,15 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
+# Allow to run docker daemon without sudo
+sudo echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/dockerd" | (sudo su -c 'EDITOR="tee" visudo -f /etc/sudoers.d/docker')
+
 DOCKER_DIR=/mnt/wsl/shared-docker
 mkdir -pm o=,ug=rwx "$DOCKER_DIR"
 chgrp docker "$DOCKER_DIR"
 
-# sudo mkdir -p /etc/docker/
-# cp resources/etc/docker/daemon.json /etc/docker/daemon.json
+sudo mkdir -p /etc/docker/
+cp resources/etc/docker/daemon.json /etc/docker/daemon.json
 
 echo '# Start Docker daemon automatically when logging in if not running.' >> ~/.zshrc
 echo 'RUNNING=`ps aux | grep dockerd | grep -v grep`' >> ~/.zshrc
