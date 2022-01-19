@@ -3,7 +3,7 @@
 DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION:=v2.2.3}
 SYSTEM=$(uname -s)
 ARCHITECTURE=$(uname -m)
-HOMEDIR=$(sudo -u $USER sh -c 'echo $HOME')
+HOMEDIR=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 # Install apt packages
 sudo apt update
@@ -16,7 +16,7 @@ sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd -
 
 sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig
 sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target
-exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
+sudo exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
 
 sudo snap install phpstorm --classic
 
@@ -41,21 +41,21 @@ sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPO
 sudo chmod +x /usr/local/bin/docker-compose
 
 sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $SUDO_USER
 
 # Allow to run docker daemon without sudo
-sudo echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/dockerd" | (sudo su -c 'EDITOR="tee" visudo -f /etc/sudoers.d/docker')
+sudo echo "$SUDO_USER ALL=(ALL) NOPASSWD: /usr/bin/dockerd" | (sudo su -c 'EDITOR="tee" visudo -f /etc/sudoers.d/docker')
+#
+# DOCKER_DIR=/mnt/wsl/shared-docker
+# mkdir -pm o=,ug=rwx "$DOCKER_DIR"
+# chgrp docker "$DOCKER_DIR"
+#
+# sudo mkdir -p /etc/docker/
+# cp resources/etc/docker/daemon.json /etc/docker/daemon.json
 
-DOCKER_DIR=/mnt/wsl/shared-docker
-mkdir -pm o=,ug=rwx "$DOCKER_DIR"
-chgrp docker "$DOCKER_DIR"
-
-sudo mkdir -p /etc/docker/
-cp resources/etc/docker/daemon.json /etc/docker/daemon.json
-
-echo '# Start Docker daemon automatically when logging in if not running.' >> ~/.zshrc
-echo 'RUNNING=`ps aux | grep dockerd | grep -v grep`' >> ~/.zshrc
-echo 'if [ -z "$RUNNING" ]; then' >> ~/.zshrc
-echo '    sudo dockerd > /dev/null 2>&1 &' >> ~/.zshrc
-echo '    disown' >> ~/.zshrc
-echo 'fi' >> ~/.zshrc
+echo '# Start Docker daemon automatically when logging in if not running.' >> ${HOMEDIR}/.zshrc
+echo 'RUNNING=`ps aux | grep dockerd | grep -v grep`' >> ${HOMEDIR}/.zshrc
+echo 'if [ -z "$RUNNING" ]; then' >> ${HOMEDIR}/.zshrc
+echo '    sudo dockerd > /dev/null 2>&1 &' >> ${HOMEDIR}/.zshrc
+echo '    disown' >> ${HOMEDIR}/.zshrc
+echo 'fi' >> ${HOMEDIR}/.zshrc
