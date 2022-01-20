@@ -12,7 +12,7 @@ sudo apt install -y python3-pip zsh htop git curl tldr
 
 # Make snap work under WSL2
 git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git $HOMEDIR/ubuntu-wsl2-systemd-script
-$HOMEDIR/ubuntu-wsl2-systemd-script/ubuntu-wsl2-systemd-script.sh
+$HOMEDIR/ubuntu-wsl2-systemd-script/ubuntu-wsl2-systemd-script.sh --force
 
 sudo snap install phpstorm --classic
 
