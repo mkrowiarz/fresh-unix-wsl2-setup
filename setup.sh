@@ -27,6 +27,11 @@ cp .zshrc ${HOMEDIR}/.zshrc
 cp .antigenrc ${HOMEDIR}./.antigenrc
 cp .p10k.zsh ${HOMEDIR}/.p10k.zsh
 
+cp resources/etc/wsl.conf /etc/wsl.conf
+
+sudo echo "[user]" >> /etc/wsl.conf
+sudo echo "default=${SUDO_USER}"
+
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
