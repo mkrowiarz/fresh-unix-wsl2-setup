@@ -19,5 +19,5 @@ sudo snap install phpstorm --classic
 ```
 
 Credits:
-https://snapcraft.ninja/2020/07/29/systemd-snap-packages-wsl2/
-https://github.com/DamionGans/ubuntu-wsl2-systemd-script
+* https://snapcraft.ninja/2020/07/29/systemd-snap-packages-wsl2/
+* https://github.com/DamionGans/ubuntu-wsl2-systemd-script
