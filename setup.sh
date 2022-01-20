@@ -3,7 +3,6 @@
 DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION:=v2.2.3}
 SYSTEM=$(uname -s)
 ARCHITECTURE=$(uname -m)
-HOMEDIR=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 # Install apt packages
 sudo apt update
