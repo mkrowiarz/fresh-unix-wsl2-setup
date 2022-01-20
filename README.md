@@ -3,7 +3,7 @@ sudo apt install -y git \
    && git clone https://github.com/mkrowiarz/fresh-unix-wsl2-setup.git \
    && cd fresh-unix-wsl2-setup \
    && chmod +x setup.sh \
-   && ./setup.sh
+   && sudo ./setup.sh
 ```
 
 After that, make sure to shutdown WSL2 instance, so that `snapd` can start working properly.
