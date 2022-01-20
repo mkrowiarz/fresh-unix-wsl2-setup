@@ -7,7 +7,7 @@ HOMEDIR=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 # Install apt packages
 sudo apt update
-sudo apt upgrade
+sudo apt -y upgrade
 sudo apt install -y python3-pip zsh htop git curl tldr
 
 # Make snap work under WSL2
