@@ -11,12 +11,8 @@ sudo apt upgrade
 sudo apt install -y python3-pip zsh htop git curl tldr
 
 # Make snap work under WSL2
-sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig && \
-sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
-
-sudo apt-get update && sudo apt-get install -yqq daemonize dbus-user-session fontconfig
-sudo daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target
-sudo exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
+git clone https://github.com/DamionGans/ubuntu-wsl2-systemd-script.git $HOMEDIR/ubuntu-wsl2-systemd-script
+$HOMEDIR/ubuntu-wsl2-systemd-script/ubuntu-wsl2-systemd-script.sh
 
 sudo snap install phpstorm --classic
 
