@@ -27,8 +27,6 @@ cp .zshrc ${HOMEDIR}/.zshrc
 cp .antigenrc ${HOMEDIR}./.antigenrc
 cp .p10k.zsh ${HOMEDIR}/.p10k.zsh
 
-antigen theme spaceship-prompt/spaceship-prompt
-
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
